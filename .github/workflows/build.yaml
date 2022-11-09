@@ -1,0 +1,81 @@
+name: Build
+# this file is a workflow
+on:
+  # push:
+  #   branches: [ "master" ]
+  schedule:
+    - cron:  '0 17 */5 * *'
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        os: [linux]
+        # os: [linux]
+        arch: [x86_64, aarch64]
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+    - name: presetup
+      run: |
+        mkdir output
+        os_arch=${{ matrix.arch }}
+        if [[ "$os_arch" == "aarch64" ]]
+        then
+          os_arch="arm64"
+        elif [[ "$os_arch" == "x86_64" ]]
+        then
+          os_arch="amd64"
+        fi
+        platform=${{ matrix.os }}
+        if [[ "$platform" == "apple" ]]
+        then
+          platform="darwin"
+        fi
+        platform="$platform" arch="$os_arch" ./common.sh
+    - name: BuildLinux
+      if: ${{ matrix.os=='linux'}}
+      run: |
+        target=${{ matrix.arch }}-unknown-${{ matrix.os }}-musl
+        rustup target add $target
+        cross build --release --target $target
+        chmod u+x target/$target/release/cls
+        tar cvzf output/cls-$target.tar.gz -C target/$target/release/ cls
+    - uses: actions/upload-artifact@v3
+      if: ${{  success() }}
+      with:
+        name: artifact
+        path: output/
+  upload-release:
+    permissions: write-all
+    if: ${{ github.ref_type=='branch' && github.event_name != 'pull_request' }}
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/download-artifact@v3
+          with:
+            name: artifact
+            path: output/
+        - name: Display structure of downloaded files
+          run: ls -R
+          working-directory: output
+        - name: Release
+          uses: softprops/action-gh-release@v1
+          with:
+            body: release
+            # note you'll typically need to create a personal access token
+            # with permissions to create releases in the other repo
+            token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
+            repository: taikulawo/pub-release
+            name: release
+            tag_name: release
+            files: |
+              output/*
