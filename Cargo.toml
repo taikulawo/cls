@@ -1,0 +1,41 @@
+[package]
+name = "cls"
+version = "0.1.0"
+edition = "2021"
+authors = ["wuweichao <qaq1362211689@gmail.com>"]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[profile.release]
+lto = true
+# 保留symbol，方便排查问题
+strip = false
+[dependencies]
+anyhow = { version = "1.0.72", features = ["backtrace"] }
+serde = { version = "1.0.147", features = ["derive"] }
+serde_yaml = "0.9.14"
+clap = { version = "4.0.26", features = ["derive"] }
+reqwest = { version = "0.11", features = [
+    "json",
+    "blocking",
+    "rustls-tls",
+], default-features = false }
+tokio = { version = "1", features = ["full"] }
+lazy_static = "1.4.0"
+handlebars = "4.3.7"
+tempfile = "3"
+serde_json = "1.0.104"
+log = "0.4.0"
+env_logger = "0.9.0"
+cfg-if = "1"
+dirs = "5.0"
+libc = "0.2.150"
+axum = "0.6.20"
+[build-dependencies]
+tar = "0.4"
+
+[[bin]]
+name = "server"
+path = "bin/server.rs"
+
+[[bin]]
+name = "cls"
+path = "bin/cls.rs"
