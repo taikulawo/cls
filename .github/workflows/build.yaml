@@ -50,33 +50,20 @@ jobs:
         cross build --release --target $target
         chmod u+x target/$target/release/cls
         tar cvzf output/cls-$target.tar.gz -C target/$target/release/ cls
-    - uses: actions/upload-artifact@v4
-      if: ${{  success() }}
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: output
+    - name: UploadToRelease
+      uses: softprops/action-gh-release@v2
+      if: ${{ github.ref_type=='branch' && github.event_name != 'pull_request' }}
       with:
-        name: artifact-${{ matrix.arch }}-${{ matrix.os }}
-        path: output/
-  upload-release:
-    permissions: write-all
-    if: ${{ github.ref_type=='branch' && github.event_name != 'pull_request' }}
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-        - uses: actions/download-artifact@v3
-          with:
-            name: artifact-${{ matrix.arch }}-${{ matrix.os }}
-            path: output/
-        - name: Display structure of downloaded files
-          run: ls -R
-          working-directory: output
-        - name: Release
-          uses: softprops/action-gh-release@v2
-          with:
-            body: release
-            # note you'll typically need to create a personal access token
-            # with permissions to create releases in the other repo
-            token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
-            repository: ${{ github.repository }}
-            name: release
-            tag_name: release
-            files: |
-              output/*
+        body: release
+        # note you'll typically need to create a personal access token
+        # with permissions to create releases in the other repo
+        token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
+        repository: ${{ github.repository }}
+        name: release
+        tag_name: release
+        files: |
+          output/*
+        
