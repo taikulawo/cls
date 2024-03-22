@@ -3,13 +3,13 @@
 ### x86
 
 ```bash
-wget https://mirror.ghproxy.com/https://github.com/taikulawo/pub-release/releases/download/release/cls-x86_64-unknown-linux-musl.tar.gz -O /tmp/cls.tar.gz
+wget https://mirror.ghproxy.com/https://github.com/taikulawo/cls/releases/download/release/cls-x86_64-unknown-linux-musl.tar.gz -O /tmp/cls.tar.gz
 sudo tar xvzf /tmp/cls.tar.gz -C /usr/local/bin
 ```
 ### arm64
 
 ```bash
-wget https://mirror.ghproxy.com/https://github.com/taikulawo/pub-release/releases/download/release/cls-aarch64-unknown-linux-musl.tar.gz -O /tmp/cls.tar.gz
+wget https://mirror.ghproxy.com/https://github.com/taikulawo/cls/releases/download/release/cls-aarch64-unknown-linux-musl.tar.gz -O /tmp/cls.tar.gz
 sudo tar xvzf /tmp/cls.tar.gz -C /usr/local/bin
 ```
 
