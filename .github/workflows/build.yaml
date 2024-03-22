@@ -53,7 +53,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: ${{  success() }}
       with:
-        name: artifact
+        name: artifact-${{ matrix.arch }}-${{ matrix.os }}
         path: output/
   upload-release:
     permissions: write-all
@@ -63,7 +63,7 @@ jobs:
     steps:
         - uses: actions/download-artifact@v3
           with:
-            name: artifact
+            name: artifact-${{ matrix.arch }}-${{ matrix.os }}
             path: output/
         - name: Display structure of downloaded files
           run: ls -R
