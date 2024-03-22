@@ -15,7 +15,6 @@ jobs:
     strategy:
       matrix:
         os: [linux]
-        # os: [linux]
         arch: [x86_64, aarch64]
     steps:
     - name: Checkout repository
@@ -24,10 +23,8 @@ jobs:
         submodules: recursive
         token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
 
-    - name: Setup Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
+    - name: install Rust stable
+      uses: dtolnay/rust-toolchain@stable
     - name: presetup
       run: |
         mkdir output
@@ -53,7 +50,7 @@ jobs:
         cross build --release --target $target
         chmod u+x target/$target/release/cls
         tar cvzf output/cls-$target.tar.gz -C target/$target/release/ cls
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       if: ${{  success() }}
       with:
         name: artifact
@@ -72,7 +69,7 @@ jobs:
           run: ls -R
           working-directory: output
         - name: Release
-          uses: softprops/action-gh-release@v1
+          uses: softprops/action-gh-release@v2
           with:
             body: release
             # note you'll typically need to create a personal access token
