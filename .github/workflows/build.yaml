@@ -1,8 +1,9 @@
 name: Build
 # this file is a workflow
 on:
-  # push:
-  #   branches: [ "master" ]
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
   schedule:
     - cron:  '0 17 */5 * *'
 env:
