@@ -38,10 +38,9 @@ journalctl -u cls-linux -f
 1. clash配置文件
    - rules只加根据大陆IP分流，和内网CIDR分流。其他的都不加
    - why: dl.google.com 在[一些rule](https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/direct.txt)上是DIRECT，实际通不了
-2. 订阅链接删除非proxy
-![image](https://github.com/microsoft/vscode/assets/24750337/a3d9fc0d-4049-4355-9152-f0744f9d8232)
-3. 字节禁止用外网DNS解析，代理是域名会导致解析失败，不可用
-   
+2. 订阅链接删除非proxy（咖啡猫的订阅返回剩余流量的profile，）
+
+3. 某些公司禁止用外网DNS解析，代理是域名会导致解析失败，不可用
    解决办法：在clash for windows 的 dns 加上内网 DNS ip
    ![image](https://github.com/iamwwcposts/articles/assets/24750337/6dcde701-10b0-47c6-83b4-469452fdf76e)
 
