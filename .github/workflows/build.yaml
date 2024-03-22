@@ -19,9 +19,10 @@ jobs:
         arch: [x86_64, aarch64]
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         submodules: recursive
+        token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
 
     - name: Setup Rust
       uses: actions-rs/toolchain@v1

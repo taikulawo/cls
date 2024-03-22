@@ -3,7 +3,6 @@
 # install golang
 sudo apt update
 sudo apt install libssl-dev pkg-config musl-tools clang jq -y
-git submodule update --init --recursive
 cargo install cross --git https://github.com/cross-rs/cross
 
 # install docker

@@ -1,4 +1,4 @@
 [submodule "private"]
 	path = private
-	url = git@github.com:taikulawo/private.git
+	url = https://github.com/taikulawo/private.git
 	branch = master
