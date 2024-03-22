@@ -78,7 +78,7 @@ jobs:
             # note you'll typically need to create a personal access token
             # with permissions to create releases in the other repo
             token: ${{ secrets.ACCESS_GITHUB_TOKEN }}
-            repository: taikulawo/cls
+            repository: ${{ github.GITHUB_REPOSITORY }}
             name: release
             tag_name: release
             files: |
