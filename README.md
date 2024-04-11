@@ -4,13 +4,13 @@
 
 ```bash
 wget https://mirror.ghproxy.com/https://github.com/taikulawo/cls/releases/download/release/cls-x86_64-unknown-linux-musl.tar.gz -O /tmp/cls.tar.gz
-sudo tar xvzf /tmp/cls.tar.gz -C /usr/local/bin
+sudo tar xvzf /tmp/cls.tar.gz -C /usr/bin
 ```
 ### arm64
 
 ```bash
 wget https://mirror.ghproxy.com/https://github.com/taikulawo/cls/releases/download/release/cls-aarch64-unknown-linux-musl.tar.gz -O /tmp/cls.tar.gz
-sudo tar xvzf /tmp/cls.tar.gz -C /usr/local/bin
+sudo tar xvzf /tmp/cls.tar.gz -C /usr/bin
 ```
 
 或者到 cls 主页点击 install.sh 的Raw，GitHub会给你一个加token的url，替换掉下面的token
