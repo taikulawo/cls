@@ -37,17 +37,20 @@ fn main() {
                 eprintln!("run under root privileges :)");
                 exit(0);
             }
-            let mut level = "info";
+            let mut level = "info".to_string();
             if cli.verbose {
-                level = "debug";
+                level = "debug".into();
+            }
+            if let Ok(v) = env::var("RUST_LOG") {
+                level = v;
             }
             env::set_var("RUST_LOG", format!("cls={}", level));
             let mut builder: Builder = Builder::from_default_env();
             builder
                 .target(Target::Stdout)
                 .format_timestamp(None)
-                .format_level(false)
-                .format_target(false)
+                .format_level(true)
+                .format_target(true)
                 .write_style(env_logger::WriteStyle::Auto);
             builder.init();
             match cli.sub_commands {

@@ -35,6 +35,8 @@ pub struct Dns {
     pub default_nameserver: Vec<String>,
     pub nameserver: Vec<String>,
     pub fallback: Vec<String>,
+    #[serde(rename = "enhanced-mode")]
+    pub enhanced_mode: Option<String>,
     #[serde(rename = "fallback-filter")]
     pub fallback_filter: FallbackFilter,
     #[serde(rename = "nameserver-policy")]

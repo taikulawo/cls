@@ -35,6 +35,16 @@
             },
             "args": ["--verbose", "clean"],
             "cwd": "${workspaceFolder}/target/debug"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "DebugServer",
+            "cargo": {
+                "args": ["build", "--bin", "cls"]
+            },
+            "args": ["--verbose", "server"],
+            "cwd": "${workspaceFolder}/target/debug"
         }
     ]
 }
