@@ -101,7 +101,7 @@ pub struct ClashAppConfig {
     pub log_level: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret: Option<String>,
-    pub rules: Vec<String>,
+    pub rules: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tun: Option<Tun>,
     #[serde(skip_serializing_if = "Option::is_none")]

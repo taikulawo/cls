@@ -94,14 +94,15 @@ pub fn normalize_clash_config(config: String, tun: bool) -> anyhow::Result<()> {
 
 // https://github.com/Dreamacro/clash/pull/375#issuecomment-1681954517
 pub fn remove_all_no_resolve_opt(config: &mut ClashAppConfig) {
-    let rules = &mut config.rules;
-    for rule in rules {
-        if rule.contains("no-resolve") {
-            let a: Vec<&str> = rule
-                .split(',')
-                .filter(|f| !f.contains("no-resolve"))
-                .collect();
-            *rule = a.join(",").into();
+    if let Some(rules) = &mut config.rules {
+        for rule in rules {
+            if rule.contains("no-resolve") {
+                let a: Vec<&str> = rule
+                    .split(',')
+                    .filter(|f| !f.contains("no-resolve"))
+                    .collect();
+                *rule = a.join(",").into();
+            }
         }
     }
 }
