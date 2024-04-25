@@ -1,4 +1,5 @@
 #!/bin/bash
+set -xe
 # setup
 # install golang
 sudo apt update
@@ -23,7 +24,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 # 更新代理文件
 curl -sL https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-only-cn-private.mmdb > data/Country.mmdb
-curl -sL $(jq -rM .subscribe_url config.json) > data/config.yaml
+curl -sL --retry 5 --max-time 10 --retry-delay 2 $(jq -rM .subscribe_url config.json) > data/config.yaml
 
 # 下载ruleset
 # get latest release
