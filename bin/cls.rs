@@ -18,7 +18,6 @@ struct Cli {
     verbose: bool,
 }
 fn main() {
-    println!("test1");
     let cli = Cli::try_parse();
     let res: anyhow::Result<()> = match cli {
         Err(err) => {
