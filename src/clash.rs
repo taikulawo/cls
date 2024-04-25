@@ -30,12 +30,13 @@ pub fn perform_merge(
     remote: String,
     tun: bool,
 ) -> anyhow::Result<ClashAppConfig> {
-    let remote: ClashAppConfig = serde_yaml::from_str(&remote)?;
+    debug!("remore config {}", remote);
+    let remote_conf: ClashAppConfig = serde_yaml::from_str(&remote)?;
     if !tun {
         base.tun = None;
     }
     let mut all_target_name = vec![];
-    remote.proxies.iter().for_each(|f| {
+    remote_conf.proxies.iter().for_each(|f| {
         if let Some(n) = f.get("name") {
             if let Some(n) = n.as_str() {
                 all_target_name.push(n.into());
@@ -77,7 +78,7 @@ pub fn perform_merge(
     let mut groups: ProxyGroups = vec![proxy_group, manual_profile, autotestprofile];
     groups.extend(base_proxy_groups);
     base.proxy_groups = groups;
-    base.proxies = remote.proxies;
+    base.proxies = remote_conf.proxies;
 
     remove_all_no_resolve_opt(&mut base);
     Ok(base)
