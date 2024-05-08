@@ -30,7 +30,7 @@ pub fn perform_merge(
     remote: String,
     tun: bool,
 ) -> anyhow::Result<ClashAppConfig> {
-    debug!("remore config {}", remote);
+    debug!("remote config {}", remote);
     let remote_conf: ClashAppConfig = serde_yaml::from_str(&remote)?;
     if !tun {
         base.tun = None;
