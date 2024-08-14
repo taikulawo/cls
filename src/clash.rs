@@ -70,14 +70,16 @@ pub fn perform_merge(
         ..Default::default()
     };
     let mut base_proxy_groups = base.proxy_groups.clone();
-    for g in &mut base_proxy_groups {
-        let mut p = vec![DEFAULT_PROXY_NAME.to_string()];
-        p.extend(all_target_name.clone());
-        g.proxies = p;
+    if let Some(base_proxy_groups) = base_proxy_groups.as_mut() {
+        for g in base_proxy_groups.iter_mut() {
+            let mut p = vec![DEFAULT_PROXY_NAME.to_string()];
+            p.extend(all_target_name.clone());
+            g.proxies = p;
+        }
+        let mut groups: ProxyGroups = vec![proxy_group, manual_profile, autotestprofile];
+        groups.extend(base_proxy_groups.clone());
+        base.proxy_groups = Some(groups);
     }
-    let mut groups: ProxyGroups = vec![proxy_group, manual_profile, autotestprofile];
-    groups.extend(base_proxy_groups);
-    base.proxy_groups = groups;
     base.proxies = remote_conf.proxies;
 
     remove_all_no_resolve_opt(&mut base);

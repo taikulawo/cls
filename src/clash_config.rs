@@ -112,7 +112,7 @@ pub struct ClashAppConfig {
     #[serde(rename = "rule-providers")]
     pub rule_providers: Option<RuleProviders>,
     #[serde(rename = "proxy-groups")]
-    pub proxy_groups: ProxyGroups,
+    pub proxy_groups: Option<ProxyGroups>,
     pub proxies: Vec<Proxy>,
 }
 
