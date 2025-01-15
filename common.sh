@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -xe
+git submodule update --remote --recursive --init
 # setup
 # install golang
 sudo apt update
